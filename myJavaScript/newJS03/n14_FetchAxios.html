@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>** Fetch 와 Axios **</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+
+    // 1) Fetch (순수 자바스크립트로 만들기)
+    // => ES6부터 추가된 JS 내장 라이브러리로서, XMLHttpRequest 객체와 마찬가지로
+    //    Http 요청 전송 기능을 제공하는 클라이언트 사이드 Wep API.
+    // => XMLHttpRequest 객체를 기반으로하지 않으며, Promise 기반이므로 동기식처리 간편.
+    // => JSON Data 처리시 JSON으로 변환해주는 과정(JSON.stringify()) 필요.
+    //  ( 상대적으로 axios에 비해 기능 부족하고 불편 )
+    // => response 를 2번에 나누어 받음
+    //    -> then 1단계
+    //        : response 의 header 먼저 인지함.
+    //        : status 확인후 성공/실패에 따른 처리
+    //        : 성공: body 결과를 받아 전달 (Body-reading 메서드 호출 후 return)
+    //        : 실패: 오류 발생시키고, 오류코드 전달
+    //    -> then 2단계 : 1단계에서 전달 받은 Data 처리 
+    // => fetch(url, [options]).then().then()....
+    /*
+        function feTest() {
+          fetch(url,{ method:'Post',
+                      headers:'.추후 배울예정.',
+                      body: { id: document.getElementById('id').value,
+                              password: '....',
+                              name: '....'
+                            }
+          }).then().then()....
+    */
+
+    let url1 = '../javaScript05/snowVillage.html';
+    function feTest() {
+      fetch(url1)
+        .then((response) => {
+          // => status 확인후 성공/실패에 따른 처리
+          if (!response.ok) throw new Error(response.status);
+          // => catch 블럭으로
+          return response.text();
+        }).then((responsePage) => {
+          document.getElementById('resultArea').innerHTML =
+            '** 서버 Response =><br>' + responsePage;
+        }).catch((error) => {
+          document.getElementById('resultArea').innerHTML =
+            `** 서버 Response => status=${error}`;
+        });
+    } //function
+
+    // 2) Axios
+    // => axios는 Node.js와 브라우저를 위한 Promise API를 활용하는 HTTP 통신 라이브러리.
+    // => 비동기로 HTTP 통신을 할 수 있으며 return을 promise 객체로 해주기 때문에
+    //    response 데이터를 다루기 쉽다.
+    // => XHR 과 Promise 를 기반으로 하여 두 방식의 장점을 모두 가지고 있음.
+    //   ( Response를 한번에 받아오며 Data 처리 편리 )
+    // => 요청과 응답을 JSON 형태로 자동 처리함 
+    //   ( 즉, data 전송시 JSON.stringify() 필요 없음 )
+    let url2 = 'n13_03parameterResult.html';
+    function axTest() {
+      // axios({url:url2,
+      //        method:'Get'
+
+      // => Method 형식 요청
+      // get(url, data..., )
+      axios.get(url2
+      ).then((response) => {
+        document.getElementById('resultArea').innerHTML =
+          '** 서버 Response 성공 =><br>' + response.data;
+      }).catch((error) => {
+        document.getElementById('resultArea').innerHTML =
+          `** 서버 Response 실패 =><br>
+                error.response=${error.response}<br>
+                error.response.status=${error.response.status}<br>
+                error.response.headers=${error.response.headers}<br>
+                error.response.message=${error.message}`;
+      });
+    }
+
+  </script>
+</head>
+
+<body>
+  <h2>** Fetch 와 Axios **</h2>
+  <button id="ftest" onclick="feTest()">FetchTest</button><br>
+  <button id="atest" onclick="axTest()">AxiosTest</button><br>
+  <hr>
+  <div id="resultArea"></div>
+
+</body>
+
+</html>

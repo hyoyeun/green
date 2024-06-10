@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>** 화살표 함수_Arrow functions **</title>
+  <script>
+
+    // Test. 화살표 함수와 this
+    // => 일반함수
+    let gang = {
+      resorts: ["강릉", "속초", "동해", "설악산"],
+      print: function (delay = 1000) {
+        console.log('** print Test1) => ' + this.resorts.join(","));
+        setTimeout(function () {
+          console.log('** print Test2) => ' + this.resorts.join(","))
+        }.bind(this), delay);
+      }
+    }
+    gang.print();
+
+    // => 화살표함수 : CallBack 함수는 화살표함수로 가능
+    let jeju = {
+      resorts: ["제주", "서귀포", "유채꽃밭", "한라산"],
+      print: function (delay = 1000) {
+        console.log('** print Test1) => ' + this.resorts.join(","));
+        // => this 는 현재객체 jeju 인식 
+        setTimeout(
+          () => console.log('** print Test2) => ' + this.resorts.join(","))
+          // => this 는 jeju 객체를 가르킴
+          , delay);
+      } //print
+    } //jeju
+    jeju.print();
+
+  </script>
+
+</head>
+
+<body>
+  <h2>** 2. 화살표 함수(Arrow Function)</h2>
+  <pre>
+      => 화살표 함수란 화살표 기호(=>)를 활용하여 간단하게 함수를 정의할수 있는 JS 문법
+         (변수) => {...}  형태로 편리하게 사용가능
+      
+      => 제한사항	
+      - this에 대한 바인딩이 없음.
+      - methods(객체의 속성) 로 사용될 수 없음.
+      (단, ES6 부터 가능하지만 this 사용히 주의n07_01objectDeStructur.thnl 참고 )
+      - 생성자(Constructor) 함수 로 사용할 수 없음.
+
+      => 예시
+      // 매개변수가 없는 경우 : 괄호 생략 불가능
+      let foo = () => console.log('bar');
+      // let foo = function() { console.log('bar'); }
+      foo(); // bar
+      
+      // 매개변수가 하나인 경우 : 괄호 생략가능
+      let foo = x => x;
+      foo('bar'); // bar
+	
+      // 매개변수가 여러개인 경우 : 괄호생략 불가능 
+      // body 의 실행문이 1문장 이면 {   } 생략가능
+      let foo = (a, b) => a + b; // 간단하게 한줄로 표현할 땐 "{}", return 없이 값이 반환됩니다.
+      foo(1, 2); // 3
+      
+      let foo = (a, b) => { return a + b }; //"{}"를 사용하면 return 생략불가능
+      foo(1, 2); // 3
+      
+      let foo = (a, b) => { a + b }; // "{}"를 사용했는데 return이 없을 때 
+      foo(1, 2); // undefined
+      
+      let foo = (a, b) => { // 여러줄 썼을 때
+        let c = 3;
+        return a + b + c;
+      }
+      foo(1, 2, 3) // 6
+  </pre>
+</body>
+
+</html>

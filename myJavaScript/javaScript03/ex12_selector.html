@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>** Selector **</title>
+  <script>
+    onload=function(){
+      // 1. id
+      document.getElementById('header').style.color='Green';
+
+      //2. tag
+      // => 첫번째 Tag 1개만 인식
+      // => css 의 선택자 적용가능
+      let t=document.querySelector('h2');
+      t=document.querySelector('h2:nth-child(3)'); 
+      t.style.color='Red';
+      t.style.background='Black';
+
+      //3. tag all
+      //=> 모두 선택해서 배열로 리턴
+      let a=document.querySelectorAll('h4');
+      // a.style.color='Blue';  XXXXXXXX
+      for (let i=0; i<a.length; i++) {
+        a[i].style.color='Blue';
+        a[i].style.background='Yellow';
+      }
+
+      // 4. body 중에서 짝수번째 child 만 color 를 green 으로 표시
+      // => selector 사용시 주의사항: 공백사용금지 (공백이 있으면 인식안됨)
+      let aa=document.querySelectorAll('body>*:nth-child(2n)');
+      for (let i=0; i<aa.length; i++) {
+        aa[i].style.color='Green';
+        aa[i].style.background='Pink';
+        // ** 컨텐츠 변경하기 : 기울임꼴, colorChange i=0
+        aa[i].innerHTML='<i>colorChange i='+i+'</i>';
+        aa[i].innerText='<i>colorChange i='+i+'</i>';
+        // -> innerHTML: 컨텐츠에 Html Tag 가 적용됨
+		    // -> innerText : 컨텐츠에 Html Tag 가 적용안됨
+      }
+		
+	  //** class 속성 사용시에는 복수선택이 가능하므로 인덱스 사용해야함 
+	  // document.getElementsByClassName('class_nameImg')[0].src='aaa.gif';	
+	
+    }; //onload
+    
+  </script>
+</head>
+<body>
+<pre><h3>
+  ** Selector: id, tag, tag all ** 
+  1. id
+  => document.getElementById('header')
+  <span id="header">getElementById</span>
+
+  2. tag
+  => document.querySelector 
+  => 첫번째 Tag 1개만 인식
+
+  3. tag all
+  => document.querySelectorAll 
+  => 모두선택해서 배열로 리턴
+</h3></pre>
+
+  <h2>tag 선택자1 : child2</h2>
+  <h2>tag 선택자2 : child3</h2>
+  <h2>tag 선택자3 : child4</h2>
+  <h4>tagAll 선택자1 : child5</h4>
+  <h4>tagAll 선택자2 : child6</h4>
+  <h4>tagAll 선택자3 : child7, LastChild</h4>
+
+</body>
+</html>

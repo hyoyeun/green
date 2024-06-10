@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>** MyObject 만들기 **</title>
+  <script>
+    // ** MyObject 만들기
+    // => 아래 화면에서 입력된 값을 받아 객체를 완성하고  하단의 div에 그 내용을 출력하세요~ 
+
+    function send() {
+      // 1) 객체정의
+      let student = {
+        name: document.getElementById('name').value,
+        age: document.getElementById('age').value,
+        jo: document.getElementById('jo').value,
+        career: document.getElementById('career').value,
+        info1: document.getElementById('info1').value,
+        info2: document.getElementById('info2').value,
+        infoPrint:function() {
+          return `저는 ${this.name} 이고 ${this.age} 세 입니다.<br/>
+                  ${this.jo}의 조원 입니다.<br/>
+                  과거에는 ${this.career} 를 했습니다.<br/>
+                  희망사항은 ${this.info1} 이고,<br/>
+                  건의사항은 ${this.info2} 입니다.<br/>
+                  수업이 너무 재미있습니다 ~~^^`;
+        }
+      }; //student
+      // 2) div에 출력하기   
+      document.getElementById('content').innerHTML=student.infoPrint(); 
+    }
+
+</script>
+</head>
+<body>
+<h2>** Student 객체 만들기 **</h2> 
+<table width="80%">
+  <tr height="40"><th bgcolor="aqua">Name</th>
+      <td><input type="text" id="name"></td></tr>
+  <tr height="40"><th bgcolor="aqua">Age</th>
+  <td><input type="text" id="age"></td></tr>
+  <tr height="40"><th bgcolor="aqua">Jo</th>
+    <td><input type="text" id="jo"></td></tr>
+  <tr height="40"><th bgcolor="aqua">경력</th>
+    <td><input type="text" id="career"></td></tr>      
+  <tr height="40"><th bgcolor="aqua">희망사항</th>
+    <td><input type="text" id="info1"></td></tr>
+  <tr height="40"><th bgcolor="aqua">건의사항</th>
+    <td><input type="text" id="info2"></td></tr>  
+  <tr height="40"><td colspan="2" align="center"><button onclick="send()">전송</button></td></tr>  
+</table>
+<hr>
+<h3>** Info **</h3>
+<div id="content"></div>
+</body>
+</html>
